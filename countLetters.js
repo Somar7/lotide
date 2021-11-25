@@ -1,44 +1,34 @@
 const assertEqual = function(actual, expected) {
   if (actual === expected) {
-      console.log(`✅✅✅ Assertion Passed: ${actual} ===  ${expected}`);
+    console.log(`✅✅✅ Assertion Passed: ${actual} ===  ${expected}`);
   } else if (actual !== expected) {
-      console.log(`🛑🛑🛑 Assertion Failed: ${actual} !==  ${expected}`);
+    console.log(`🛑🛑🛑 Assertion Failed: ${actual} !==  ${expected}`);
   }
 };
 
-const countOnly = function(allItems, itemsToCount) {
-  const results = {};
-  for (const item of allItems) {
-      console.log(item);
-      if (itemsToCount[item]) { 
-          if (results[item]) {
-            results[item] += 1;
-          } else {
-            results[item] = 1;
-          }
-      }
+const counter = function(sentence, letter) {
+  let letterCount = 0;
+  for (let position = 0; position < sentence.length; position++) {
+    if (sentence.charAt(position) === letter) {
+      letterCount += 1;
+    }
   }
-    
-    
-      return results;
+  return letterCount;
 };
 
+const countLetter = function(string) {
+  let final = {};
+  let str = '';
+  str = string.replace(/ /g, "");
+  for (let i = 0; i < str.length; i++) {
+    //console.log(str[i]);
+    final[str[i]] = counter(str, str[i]);
+  }
+  return final;
+};
 
-const firstNames = [
-  "Karl",
-  "Salima",
-  "Agouhanna",
-  "Fang",
-  "Kavith",
-  "Jason",
-  "Salima",
-  "Fang",
-  "Joe"
-];
+const result = countLetter("lighthouse in the house")
 
-const result1 = countOnly(firstNames, { "Jason": true, "Karima": true, "Fang": true, "Agouhanna": false });
-
-assertEqual(result1["Jason"], 1);
-assertEqual(result1["Karima"], undefined);
-assertEqual(result1["Fang"], 2);
-assertEqual(result1["Agouhanna"], undefined);
+assertEqual(result["l"], 1);
+assertEqual(result["h"], 4);
+assertEqual(result["e"], 3);
